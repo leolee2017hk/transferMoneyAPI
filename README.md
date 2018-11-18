@@ -51,7 +51,7 @@ java -jar target/transfer-money-api-0.0.1-SNAPSHOT.jar
 A port 8080 is open in localhost
 
 ### Examples
-To submit authorized requests, add the below head in the request
+To submit authorized requests, add the below header in the http request
 ```
 Authorization: Basic c3lzdGVtOmFiYzEyMw==
 ```
@@ -105,7 +105,7 @@ result:
 }
 ```
 ## To Do list
-To make it more productive grade, the following can be improved.
+To make it more production-grade, the followings can be improved.
 * use a standalone database, like MySQL instead of embeded dB
 * use a more secure authentication mechanism, like JWT 
 * enable HTTPS
