@@ -35,7 +35,7 @@ Specified in the dependency section in [pom.xml](pom.xml)
 ```
 mvn test 
 ```
-Apart from running unit tests, it is also run the intergation test which is defined in <br>
+Apart from running unit tests, the command also runs the intergation test which is defined in <br>
 [/src/test/java/net/leolee/transfermoneyapi/integrationtest/TransferMoneyApiIntegrationTest.java](/src/test/java/net/leolee/transfermoneyapi/integrationtest/TransferMoneyApiIntegrationTest.java)
 ## Build
 ```
