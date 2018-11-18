@@ -62,61 +62,60 @@ baseUri: http://localhost:8080/transferMoneyApi/{version}
                     "message" : "System Exception",
                     "errorCode" : "E999"
                   }
-  /account:
-    /{fromAccountNo}:
-      /transferMoney:
-        post:
-          body:
-            application/json:
-              example: |
-                {
-                  "toAccountNumber" : "XXXX-XXXX-1234",
-                  "amount" : 10000.00
-                }
-          responses:
-            202:
-              description: Transfer is accepted and return the new balance
-              body:
-                application/json:
-                  example: |
-                    {
-                      "accountNo" : "XXXX-XXXX-1234",
-                      "balanceAmt" : 10000.00,
-                      "retrievalDateTime" : "2018-11-14T19:43:37+0800"
-                    }
-            400:
-              description: Bad Request
-              body:
-                application/json:
-                  example: |
-                    {
-                      "message" : "Recipient account <XXXX-XXXX-1234> cannot be the same as sender account!",
-                      "errorCode" : "E004"
-                    }
-            401:
-              description: Access Denied
-              body:
-                application/json:
-                  example: |
-                    {
-                      "message" : "Full authentication is required to access this resource",
-                      "errorCode" : "E101"
-                    }
-            404:
-              description: Account Number does not exist
-              body:
-                application/json:
-                  example: |
-                    {
-                      "message" : "Account Number does not exist",
-                      "errorCode" : "E001"
-                    }
-            500:
-              description: System error
-              body:
-                application/json:
-                  example: |
-                    {
-                      "message" : "System Exception",
-                      "errorCode" : "E999"
-                    }
+  /{fromAccountNo}:
+    /transferMoney:
+      post:
+        body:
+          application/json:
+            example: |
+              {
+                "toAccountNumber" : "XXXX-XXXX-1234",
+                "amount" : 10000.00
+              }
+        responses:
+          202:
+            description: Transfer is accepted and return the new balance
+            body:
+              application/json:
+                example: |
+                  {
+                    "accountNo" : "XXXX-XXXX-1234",
+                    "balanceAmt" : 10000.00,
+                    "retrievalDateTime" : "2018-11-14T19:43:37+0800"
+                  }
+          400:
+            description: Bad Request
+            body:
+              application/json:
+                example: |
+                  {
+                    "message" : "Recipient account <XXXX-XXXX-1234> cannot be the same as sender account!",
+                    "errorCode" : "E004"
+                  }
+          401:
+            description: Access Denied
+            body:
+              application/json:
+                example: |
+                  {
+                    "message" : "Full authentication is required to access this resource",
+                    "errorCode" : "E101"
+                  }
+          404:
+            description: Account Number does not exist
+            body:
+              application/json:
+                example: |
+                  {
+                    "message" : "Account Number does not exist",
+                    "errorCode" : "E001"
+                  }
+          500:
+            description: System error
+            body:
+              application/json:
+                example: |
+                  {
+                    "message" : "System Exception",
+                    "errorCode" : "E999"
+                  }
