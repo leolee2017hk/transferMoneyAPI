@@ -1,3 +1,6 @@
+/*
+ * Author: Leo Lee
+ */
 package net.leolee.transfermoneyapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 
 @Configuration
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
-	/*
-	@Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-           .ignoring()
-               .antMatchers("/**");
-    }
-*/
+
 	private static String REALM="MONEY_TRANSFER_REALM";
     
     @Autowired

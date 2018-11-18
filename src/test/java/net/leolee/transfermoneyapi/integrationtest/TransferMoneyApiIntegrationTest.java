@@ -1,3 +1,6 @@
+/*
+ * Author: Leo Lee
+ */
 package net.leolee.transfermoneyapi.integrationtest;
 
 import static org.junit.Assert.assertEquals;

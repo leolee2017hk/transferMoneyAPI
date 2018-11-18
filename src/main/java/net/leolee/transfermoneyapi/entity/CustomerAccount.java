@@ -1,3 +1,6 @@
+/*
+ * Author: Leo Lee
+ */
 package net.leolee.transfermoneyapi.entity;
 
 import java.math.BigDecimal;

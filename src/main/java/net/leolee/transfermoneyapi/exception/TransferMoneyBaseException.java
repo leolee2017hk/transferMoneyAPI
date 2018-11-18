@@ -1,3 +1,6 @@
+/*
+ * Author: Leo Lee
+ */
 package net.leolee.transfermoneyapi.exception;
 
 public abstract class TransferMoneyBaseException extends Exception {

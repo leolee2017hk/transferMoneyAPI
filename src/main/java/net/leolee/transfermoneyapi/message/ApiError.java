@@ -1,6 +1,7 @@
+/*
+ * Author: Leo Lee
+ */
 package net.leolee.transfermoneyapi.message;
-
-import org.springframework.http.HttpStatus;
 
 public class ApiError {
 
