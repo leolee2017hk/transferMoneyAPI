@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import net.leolee.transfermoneyapi.exception.ErrorCode;
+import net.leolee.transfermoneyapi.message.ApiError;
+
 public class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
 	@Override
     public void commence(final HttpServletRequest request, 
@@ -17,10 +22,14 @@ public class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntr
             final AuthenticationException authException) throws IOException, ServletException {
         //Authentication failed, send error response.
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
         response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName() + "");
-         
-        PrintWriter writer = response.getWriter();
-        writer.println("HTTP Status 401 : " + authException.getMessage());
+        
+        ApiError error = new ApiError(authException.getMessage(), ErrorCode.E101.toString());
+        
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getOutputStream(), error);		
+        
     }
      
     @Override

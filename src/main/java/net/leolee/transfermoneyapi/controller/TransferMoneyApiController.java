@@ -14,9 +14,11 @@ import java.text.MessageFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.rest.webmvc.BasePathAwareController;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,13 +33,16 @@ import net.leolee.transfermoneyapi.exception.AccountNotFoundException;
 import net.leolee.transfermoneyapi.exception.InsufficientBalanceException;
 import net.leolee.transfermoneyapi.exception.SameAccountTransferException;
 import net.leolee.transfermoneyapi.exception.TransferAmountInvalidException;
+import net.leolee.transfermoneyapi.message.ApiError;
 import net.leolee.transfermoneyapi.message.BalanceMessage;
 import net.leolee.transfermoneyapi.message.MoneyTransferObject;
 import net.leolee.transfermoneyapi.service.AccountService;
 import net.leolee.transfermoneyapi.service.TransactionService;
 
 @RestController
+@BasePathAwareController
 public class TransferMoneyApiController {
+
 	
 	@Value("${account.retrieve.balance.url}")
     private String accountBalanceURL;
@@ -52,7 +57,7 @@ public class TransferMoneyApiController {
 	TransactionService transactionService;
 	
 	@GetMapping(value="v1/account/{accountNo}/balance")
-    public BalanceMessage retrieveBalance(@PathVariable String accountNo, HttpServletResponse response) {
+    public Object retrieveBalance(@PathVariable String accountNo, HttpServletResponse response) {
 			
 		TimeZone tz = TimeZone.getDefault();
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -69,15 +74,15 @@ public class TransferMoneyApiController {
 				
 		}catch (AccountNotFoundException e) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			msg.setMessage(e.getMessage());
-			msg.setErrorCode(e.getErrorCode().toString());
+			return new ApiError(e.getMessage(), e.getErrorCode().toString());
+
 		} 
-		
+
 		return msg;
     }
 	
 	@PostMapping(value="v1/account/{fromAccountNo}/transferMoney")
-    public BalanceMessage transferMoney(@PathVariable String fromAccountNo, 
+    public Object transferMoney(@PathVariable String fromAccountNo, 
     										@Valid @RequestBody MoneyTransferObject moneyTransfer, 
     											HttpServletResponse response) {
 		BalanceMessage failedMessage = new BalanceMessage();
@@ -91,15 +96,16 @@ public class TransferMoneyApiController {
 			isSuccess = transactionService.transferMoney(fromAccountNo, toAccountNo, amount);
 			response.setStatus(HttpServletResponse.SC_ACCEPTED);
 		} catch (AccountNotFoundException e) {
+			
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			failedMessage.setMessage(e.getMessage());
-			failedMessage.setErrorCode(e.getErrorCode().toString());
+			return new ApiError(e.getMessage(), e.getErrorCode().toString());
+			
 		} catch (InsufficientBalanceException 
 				| SameAccountTransferException 
 				| TransferAmountInvalidException e) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			failedMessage.setMessage(e.getMessage());
-			failedMessage.setErrorCode(e.getErrorCode().toString());
+			
+			return new ApiError(e.getMessage(), e.getErrorCode().toString());
 		} 
 		
 		//retrieve the resulting balance after Money transfer
@@ -122,9 +128,5 @@ public class TransferMoneyApiController {
 		}else{
 			return failedMessage;
 		}
-		
-		
-		
     }
-	
 }

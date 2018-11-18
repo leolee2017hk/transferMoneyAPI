@@ -61,9 +61,9 @@ public class TransferMoneyApiIntegrationTest {
 		String accountNo = "T10001";
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-				"/v1/account/" + accountNo + "/balance")
+				"/transferMoneyApi/v1/account/" + accountNo + "/balance")
 				.headers(getHeaders())
-				.accept(MediaType.APPLICATION_JSON);
+				.accept(MediaType.APPLICATION_JSON).contextPath("/transferMoneyApi");
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
@@ -84,10 +84,10 @@ public class TransferMoneyApiIntegrationTest {
 		String fromAccountNo = "T10001";
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post("/v1/account/" + fromAccountNo + "/transferMoney")
+				.post("/transferMoneyApi/v1/account/" + fromAccountNo + "/transferMoney")
 				.headers(getHeaders())
 				.accept(MediaType.APPLICATION_JSON).content(transferMoneyJson)
-				.contentType(MediaType.APPLICATION_JSON);
+				.contentType(MediaType.APPLICATION_JSON).contextPath("/transferMoneyApi");
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 

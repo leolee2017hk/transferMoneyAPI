@@ -7,8 +7,7 @@ public class BalanceMessage {
 	private String accountNo;
 	private BigDecimal balanceAmt;
 	private String retrievalDateTime;
-	private String message;
-	private String errorCode;
+
 	
 	public String getAccountNo() {
 		return accountNo;
@@ -32,22 +31,6 @@ public class BalanceMessage {
 	
 	public void setRetrievalDateTime(String retrievalDateTime) {
 		this.retrievalDateTime = retrievalDateTime;
-	}
-	
-	public String getMessage() {
-		return message;
-	}
-	
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	
-	public String getErrorCode() {
-		return errorCode;
-	}
-	
-	public void setErrorCode(String errorCode) {
-		this.errorCode = errorCode;
 	}
 	
 
