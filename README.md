@@ -32,20 +32,29 @@ Basic Authentication
 Specified in the dependency section in [pom.xml](pom.xml)
 
 ## Test
-> mvn test <br>
+```
+mvn test 
+```
 Apart from running unit tests, it is also run the intergation test which is defined in <br>
 [/src/test/java/net/leolee/transfermoneyapi/integrationtest/TransferMoneyApiIntegrationTest.java](/src/test/java/net/leolee/transfermoneyapi/integrationtest/TransferMoneyApiIntegrationTest.java)
 ## Build
-> mvn package <br>
-The artifact will be generated in<br> 
-target/transfer-money-api-0.0.1-SNAPSHOT.jar
+```
+mvn package
+```
+The artifact will be generated in 
+*target/transfer-money-api-0.0.1-SNAPSHOT.jar*
+
 ## Run
-> java -jar target/transfer-money-api-0.0.1-SNAPSHOT.jar <br>
+```
+java -jar target/transfer-money-api-0.0.1-SNAPSHOT.jar
+```
 A port 8080 is open in localhost
 
 ### Examples
 To submit authorized requests, add the below head in the request
-> Authorization: Basic c3lzdGVtOmFiYzEyMw== <br>
+```
+Authorization: Basic c3lzdGVtOmFiYzEyMw==
+```
 
 1. Show the balance of account <A10001>
 ```
